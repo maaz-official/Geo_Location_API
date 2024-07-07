@@ -1,0 +1,71 @@
+<!-- Longitude -->
+
+<!-- Latitude -->
+
+
+<!-- Youtube Channel -->
+<!-- Lead2Learn -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #find-me{
+            width: 100px;
+            height: 50px;
+            background-color: black;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        #find-me:hover{
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <button id="find-me">Find Your Location</button>
+    <p id="status"></p>
+    <a id="map-Link" target="_blank"></a>
+
+
+    <script>
+        function geoFindme() {
+            const status = document.querySelector("#status");
+            const mapLink = document.querySelector("#map-Link");
+            
+            mapLink.href = "";
+            mapLink.textContent = "";
+
+        function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            status.textContent = "Location found"
+            mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`
+            mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+        }
+
+        function error() {
+            status.textContent = "Unable to Retive Your Location"
+        }
+
+        if (!navigator.geolocation) {
+            status.textContent = "Not Supprted By Server Side"
+        } else {
+            status.textContent = "Locating"
+            navigator.geolocation.getCurrentPosition(success, error)
+        }
+    }
+
+        document.querySelector("#find-me").addEventListener("click", geoFindme)
+    </script>
+</body>
+</html>
